@@ -1,6 +1,12 @@
 ///////////////////////////////////
 //          01_home              //
 ///////////////////////////////////
+/* navの上余白 */
+.spacer-top {
+  /* navが初期表示で画面最下部に見えるよう高さ調整 */
+  height: calc(100vh - var(--nav-h) - var(--nav-gap) * 2);
+}
+
 /* ページ構造 */
 .hero-section {
   position: relative;

@@ -12,12 +12,3 @@ async function loadMenu() {
 
 // ページ読み込み時に実行
 document.addEventListener('DOMContentLoaded', loadMenu);
-
-/*
-fetch("menu.html")
-  .then((response) => response.text())
-  .then((data) => document.querySelector("#menu").innerHTML = data);
-fetch("footer.html")
-  .then((response) => response.text())
-  .then((data) => document.querySelector("#footer").innerHTML = data);
-*/
