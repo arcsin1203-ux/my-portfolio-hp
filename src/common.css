@@ -114,7 +114,7 @@ h1 {
 ///////////////////////////////////
 //            menu               //
 ///////////////////////////////////
-nav {
+#menu {
   position: sticky;
   top: var(--nav-gap);
   z-index: 20;
@@ -130,7 +130,7 @@ nav {
   box-shadow: 0 2px 16px rgba(0,0,0,0.015);
 }
 
-nav a {
+#menu a {
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -143,10 +143,10 @@ nav a {
   white-space: nowrap;
 }
 
-nav a:last-child { padding-right: 2px; }
-nav a:hover { color: #fff; text-shadow: 0 1px 4px rgba(100,100,120,0.5), 0 0 8px rgba(120,120,140,0.3); }
+#menu a:last-child { padding-right: 2px; }
+#menu a:hover { color: #fff; text-shadow: 0 1px 4px rgba(100,100,120,0.5), 0 0 8px rgba(120,120,140,0.3); }
 
-nav a:hover::before {
+#menu a:hover::before {
   content: '';
   position: absolute;
   inset: -2px -8px;

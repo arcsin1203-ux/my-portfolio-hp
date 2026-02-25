@@ -124,7 +124,7 @@
 /* 画像とテキストのセクション */
 .image-text-section {
   display: grid;
-  grid-template-columns: 580px 1.2fr;
+  grid-template-columns: 350px 1.2fr;
   gap: 0;
   background-color: #f0f0f0;
   margin-bottom: 60px;
