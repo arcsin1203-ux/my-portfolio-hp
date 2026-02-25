@@ -6,95 +6,9 @@
   <title>No.19 ファイル管理システム「Zidoma」サイト 制作 | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="common.css">
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --text:        #1a1a1a;
-      --text-mid:    #555;
-      --text-light:  #888;
-      --accent:      #C0C9DB;
-      --accent-rgb:  192, 201, 219;
-      --max-w:       1000px;
-      --nav-h:       52px;
-      --nav-gap:     24px;
-    }
-
-    html { font-size: 16px; }
-    body {
-      background: #fff;
-      color: var(--text);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* ════════════════════════════
-       NAV OUTER WRAPPER — sticky はここで制御
-    ════════════════════════════ */
-    .nav-outer {
-      position: sticky;
-      top: var(--nav-gap);
-      z-index: 200;
-      height: 0;          /* 高さを持たせず後続コンテンツに影響しない */
-      overflow: visible;
-      pointer-events: none;
-    }
-
-    /* ════════════════════════════
-       NAV（portfolio_merged_1.html より）
-    ════════════════════════════ */
-    #main-nav {
-      position: relative;    /* sticky は nav-outer 側で制御 */
-      display: inline-flex;
-      align-items: center;
-      height: var(--nav-h);
-      margin: 0;
-      padding: 0 24px 0 32px;
-      pointer-events: auto;
-      background: rgba(250, 250, 252, 0.25);
-      backdrop-filter: blur(22px) saturate(1.5) brightness(1.05);
-      -webkit-backdrop-filter: blur(22px) saturate(1.5) brightness(1.05);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.015);
-    }
-
-    #main-nav a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: #222;
-      text-decoration: none;
-      padding: 8px 20px;
-      position: relative;
-      transition: color 0.25s;
-      white-space: nowrap;
-    }
-    #main-nav a:last-child { padding-right: 2px; }
-
-    #main-nav a:hover {
-      color: #fff;
-      text-shadow: 0 2px 12px rgba(80,80,110,0.8),
-                   0 0 24px rgba(100,100,140,0.6),
-                   0 0 48px rgba(120,120,160,0.3);
-    }
-    #main-nav a:hover::before {
-      content: '';
-      position: absolute;
-      inset: -2px -8px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse 85% 75% at 50% 50%,
-        rgba(215,215,228,0.95) 0%,
-        rgba(222,222,236,0.50) 52%,
-        transparent 75%
-      );
-      filter: blur(7px);
-      z-index: -1;
-    }
-
     /* ════════════════════════════
        HERO BLOCK（左端ブリード）
     ════════════════════════════ */
@@ -547,113 +461,6 @@
       font-family: 'Cormorant Garamond', serif;
     }
 
-    /* ════════════════════════════
-       FOOTER（portfolio_merged_1.html より）
-    ════════════════════════════ */
-    footer {
-      position: relative;
-      z-index: 10;
-      background: #fff;
-      padding: 60px 40px 40px;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      font-family: 'Cormorant Garamond', 'Noto Sans JP', serif;
-    }
-
-    .footer-home {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      color: #1a1a1a;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1a1a1a;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      text-decoration: none;
-    }
-    .footer-home .arrow {
-      font-style: normal;
-      display: inline-block;
-      font-size: 16px;
-      transition: transform 0.25s ease;
-    }
-    .footer-home:hover .arrow { transform: translateX(5px); }
-
-    .footer-nav {
-      display: flex;
-      gap: 0;
-      align-items: flex-start;
-    }
-    .footer-nav-col { flex: 1; }
-    .footer-nav-col a {
-      display: block;
-      text-decoration: none;
-      color: #1a1a1a;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.03em;
-    }
-    .footer-nav-col > a { margin-bottom: 12px; }
-    .footer-nav-col > a .arrow {
-      font-style: normal;
-      display: inline-block;
-      margin-right: 4px;
-      font-size: 16px;
-      transition: transform 0.25s ease;
-    }
-    .footer-nav-col > a:hover .arrow { transform: translateX(5px); }
-
-    .footer-submenu { padding-left: 0; margin-top: 4px; }
-    .footer-submenu-indent {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .footer-submenu-bracket {
-      color: #1a1a1a;
-      font-size: 13px;
-      line-height: 1.6;
-      flex-shrink: 0;
-    }
-    .footer-submenu-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .footer-submenu-list li a {
-      font-size: 13px;
-      color: #1a1a1a;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      position: relative;
-      display: inline-block;
-    }
-    .footer-submenu-list li a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0;
-      width: 0; height: 1px;
-      background: #1a1a1a;
-      transition: width 0.3s ease;
-    }
-    .footer-submenu-list li a:hover::after { width: 100%; }
-
-    .footer-copyright {
-      margin-top: 60px;
-      text-align: right;
-      font-size: 9px;
-      color: #b0b0b0;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-    }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 720px) {
       .split-layout { grid-template-columns: 1fr; }
@@ -668,18 +475,6 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════
-     NAV（portfolio_merged_1.html より）
-     左端 = viewport 左端からそのまま伸びる
-══════════════════════════════ -->
-<div class="nav-outer">
-  <nav id="main-nav">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Work</a>
-    <a href="#">Career</a>
-  </nav>
-</div>
 <!-- nav-outer は height:0 のため、nav の実高さ分だけスペースを確保 -->
 <div style="height: calc(var(--nav-h) + var(--nav-gap) * 2);"></div>
 
@@ -789,19 +584,19 @@
   <nav class="pager" aria-label="前後の作品へ">
 
     <!-- PREV: [◀]─── テキスト -->
-    <a href="work_18.html" class="pager-prev">
+    <a href="digital_15.html" class="pager-prev">
       <div class="pager-arrow-line">
         <span class="arrow-tip-left"></span>
         <span class="arrow-line"></span>
       </div>
       <div class="pager-texts">
         <span class="pager-dir">Prev</span>
-        <span class="pager-work-title">No.18 業務支援ツールの企画・予算獲得（ファストリ）</span>
+        <span class="pager-work-title">No.15 公式サイトとメール配信の統合運用</span>
       </div>
     </a>
 
     <!-- CENTER: see more SVG（リンク付き・ホバーでドットが拡大→線に変化） -->
-    <a href="#" class="pager-center" aria-label="作品一覧へ">
+    <a href="../../01_home.html#work" class="pager-center" aria-label="作品一覧へ">
       <svg class="pager-seemore-svg"
            xmlns="http://www.w3.org/2000/svg"
            viewBox="0 0 95.568 95.963"
@@ -842,53 +637,11 @@
         <circle class="seemore-dot" cx="47.998" cy="48.333" r="6.692"/>
       </svg>
     </a>
-
-    <!-- NEXT: テキスト ───[▶] -->
-    <a href="work_20.html" class="pager-next">
-      <div class="pager-texts">
-        <span class="pager-dir">Next</span>
-        <span class="pager-work-title">No.20 会社案内・営業資材のトータル制作</span>
-      </div>
-      <div class="pager-arrow-line">
-        <span class="arrow-line"></span>
-        <span class="arrow-tip-right"></span>
-      </div>
-    </a>
-
   </nav>
 
 </div><!-- /.content-wrap -->
-
-<!-- ══════════════════════════════
-     FOOTER（portfolio_merged_1.html より）
-══════════════════════════════ -->
-<footer>
-  <a href="#" class="footer-home"><span class="arrow">›</span> Home</a>
-  <nav class="footer-nav">
-    <div class="footer-nav-col">
-      <a href="#"><span class="arrow">›</span> About</a>
-    </div>
-    <div class="footer-nav-col">
-      <a href="#"><span class="arrow">›</span> Work</a>
-      <div class="footer-submenu">
-        <div class="footer-submenu-indent">
-          <span class="footer-submenu-bracket">└</span>
-          <ul class="footer-submenu-list">
-            <li><a href="#">Digital</a></li>
-            <li><a href="#">Event</a></li>
-            <li><a href="#">Sales Support</a></li>
-            <li><a href="#">Public Relations</a></li>
-            <li><a href="#">Private</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-nav-col">
-      <a href="#"><span class="arrow">›</span> Career</a>
-    </div>
-  </nav>
-  <p class="footer-copyright">神田 有作のデザインのポートフォリオとなり、無断転載等の一切を禁止しております</p>
-</footer>
+  <div id="footer"></div>
+  <script src="common.js"></script>
 
 </body>
 </html>
