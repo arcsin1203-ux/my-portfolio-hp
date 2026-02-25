@@ -4,7 +4,7 @@ async function loadMenu() {
     const responseFooter = await fetch('footer.html');
 
     const menuHtml   = await responseMenu.text();
-    const footerHtml = await responsefooter.text();
+    const footerHtml = await responseFooter.text();
 
     document.getElementById('menu').innerHTML   = menuHtml;
     document.getElementById('footer').innerHTML = footerHtml;
