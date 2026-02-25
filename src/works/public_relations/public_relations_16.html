@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No.16 ブランド浸透のための備品・グッズ制作 | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:        #1a1a1a;
+      --text-mid:    #555;
+      --text-light:  #888;
+      --accent:      #C0C9DB;
+      --accent-rgb:  192, 201, 219;
+      --max-w:       1000px;
+      --nav-h:       52px;
+      --nav-gap:     24px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: #fff;
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ════════════════════════════
+       NAV OUTER WRAPPER — sticky はここで制御
+    ════════════════════════════ */
+    .nav-outer {
+      position: sticky;
+      top: var(--nav-gap);
+      z-index: 200;
+      height: 0;          /* 高さを持たせず後続コンテンツに影響しない */
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    /* ════════════════════════════
+       NAV（portfolio_merged_1.html より）
+    ════════════════════════════ */
+    #main-nav {
+      position: relative;    /* sticky は nav-outer 側で制御 */
+      display: inline-flex;
+      align-items: center;
+      height: var(--nav-h);
+      margin: 0;
+      padding: 0 24px 0 32px;
+      pointer-events: auto;
+      background: rgba(250, 250, 252, 0.25);
+      backdrop-filter: blur(22px) saturate(1.5) brightness(1.05);
+      -webkit-backdrop-filter: blur(22px) saturate(1.5) brightness(1.05);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.015);
+    }
+
+    #main-nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #222;
+      text-decoration: none;
+      padding: 8px 20px;
+      position: relative;
+      transition: color 0.25s;
+      white-space: nowrap;
+    }
+    #main-nav a:last-child { padding-right: 2px; }
+
+    #main-nav a:hover {
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(80,80,110,0.8),
+                   0 0 24px rgba(100,100,140,0.6),
+                   0 0 48px rgba(120,120,160,0.3);
+    }
+    #main-nav a:hover::before {
+      content: '';
+      position: absolute;
+      inset: -2px -8px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse 85% 75% at 50% 50%,
+        rgba(215,215,228,0.95) 0%,
+        rgba(222,222,236,0.50) 52%,
+        transparent 75%
+      );
+      filter: blur(7px);
+      z-index: -1;
+    }
+
+    /* ════════════════════════════
+       HERO BLOCK（左端ブリード）
+    ════════════════════════════ */
+    .hero-block {
+      position: relative;
+      /*
+        左端 = viewport左端
+        右端 = content-wrap の内側右端（padding 32px 分を引いて揃える）
+        = (100vw - max-w) / 2 + max-w - 32px = 50vw + 468px
+      */
+      max-width: calc(var(--max-w) + (100vw - var(--max-w)) / 2 - 32px);
+      margin-bottom: 88px;
+    }
+
+    .hero-image-wrap {
+      width: 100%;
+      height: 480px;
+      background: #e9ecf1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-image-wrap::after {
+      content: 'Hero Image  —  src="images/hero.jpg"';
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      text-transform: uppercase;
+      pointer-events: none;
+      position: absolute;
+    }
+    /* ① HERO IMAGE: src="" に画像パスを入れてください */
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-image-wrap:has(img[src]:not([src=""])) { background: transparent; }
+    .hero-image-wrap:has(img[src]:not([src=""]))::after { display: none; }
+
+    /* ── SCROLL インジケーター ── */
+    .scroll-indicator {
+      position: absolute;
+      /*
+        hero-block の右端 = content-wrap 内側右端と同位置
+        right: 0 で常にそこへ固定（ビューポート幅に関わらず動かない）
+      */
+      right: 12px;
+      bottom: -52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-text {
+      font-family: 'EB Garamond', serif;
+      font-size: 9px;
+      letter-spacing: 0.38em;
+      color: var(--text-light);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 52px;
+      background: #e0e0e0;
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--text);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0%   { top: -100%; opacity: 0; }
+      15%  { opacity: 1; }
+      85%  { top: 120%; opacity: 1; }
+      100% { top: 120%; opacity: 0; }
+    }
+
+    /* ════════════════════════════
+       CONTENT WRAPPER
+    ════════════════════════════ */
+    .content-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 0 0 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-light);
+    }
+    .breadcrumb a { color: var(--text-light); text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; opacity: 0.5; }
+
+    /* ── PAGE TITLE ── */
+    .page-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      margin-bottom: 36px;
+    }
+
+    /* ════════════════════════════
+       IMAGE PLACEHOLDER HELPER
+       src="" に画像パスを入れるだけで表示されます
+    ════════════════════════════ */
+    .img-ph {
+      background: #eceef2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-ph::after {
+      content: attr(data-label);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: #bbb;
+      text-transform: uppercase;
+      position: absolute;
+      pointer-events: none;
+    }
+    .img-ph img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .img-ph:has(img[src]:not([src=""])) { background: transparent; }
+    .img-ph:has(img[src]:not([src=""]))::after { display: none; }
+
+    /* ── VIDEO SECTION ── */
+    .video-section { margin-bottom: 72px; }
+    .video-wrapper {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #111;
+      overflow: hidden;
+    }
+    .video-wrapper iframe,
+    .video-wrapper video {
+      width: 100%; height: 100%;
+      display: block; border: none;
+    }
+    .video-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; background: #1a1a1a;
+    }
+    .video-play-icon {
+      width: 60px; height: 60px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-play-icon::after {
+      content: '';
+      width: 0; height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid rgba(255,255,255,0.5);
+      margin-left: 4px;
+    }
+    .video-label {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+    .video-caption {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── OVERVIEW ── */
+    .overview {
+      margin-bottom: 72px;
+      padding: 26px 32px;
+      /* #C0C9DB を薄く透かした背景 */
+      background: rgba(var(--accent-rgb), 0.08);
+      border-left: 2px solid rgba(var(--accent-rgb), 0.55);
+    }
+    .overview p {
+      font-size: 0.875rem;
+      line-height: 2;
+      color: var(--text-mid);
+    }
+
+    /* ── SECTION COMMON ── */
+    .section { margin-bottom: 72px; }
+
+    .section-label {
+      font-family: 'EB Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(var(--accent-rgb), 0.9);
+      /* accent が薄いのでフィルタで見やすく */
+      filter: brightness(0.65) saturate(1.4);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(var(--accent-rgb), 0.35);
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+    .section-title .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #7a8ba8;
+      line-height: 1;
+    }
+    .section-body {
+      font-size: 0.875rem;
+      line-height: 2;
+      color: var(--text-mid);
+    }
+    .section-body p + p { margin-top: 1.4em; }
+
+    /* ── SPLIT LAYOUT ── */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      align-items: start;
+    }
+    /* 右側: 1枚の大きい画像 */
+    .split-single {
+      width: 100%;
+      aspect-ratio: 3/4;
+    }
+
+    /* ── MAIL MAGAZINE ── */
+    .mailmag-section { margin-bottom: 72px; }
+    .mailmag-inner {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .mailmag-screenshots {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mailmag-screenshots .img-ph {
+      width: 100%;
+      aspect-ratio: 3/4;
+    }
+    .mailmag-body {
+      font-size: 0.875rem;
+      line-height: 2;
+      color: var(--text-mid);
+    }
+    .mailmag-body p + p { margin-top: 1.2em; }
+
+    /* ── NOTICE ── */
+    .notice-section { margin-bottom: 72px; }
+    .notice-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      margin-bottom: 18px;
+    }
+    .notice-image-wrap {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 18px;
+    }
+    .notice-body {
+      font-size: 0.875rem;
+      line-height: 2;
+      color: var(--text-mid);
+    }
+
+    /* ── DIVIDER ── */
+    hr.divider {
+      border: none;
+      border-top: 1px solid rgba(var(--accent-rgb), 0.3);
+      margin: 64px 0;
+    }
+
+    /* ════════════════════════════
+       PAGER
+       左: PREV　中: see more SVG　右: NEXT
+    ════════════════════════════ */
+    .pager {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 48px 0 56px;
+    }
+
+    /* PREV リンク */
+    .pager-prev {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: opacity 0.25s;
+    }
+    .pager-prev:hover { opacity: 0.4; }
+
+    /* NEXT リンク */
+    .pager-next {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: opacity 0.25s;
+    }
+    .pager-next:hover { opacity: 0.4; }
+
+    /* 細い横線 + 矢印 */
+    .pager-arrow-line {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .arrow-line {
+      width: 36px;
+      height: 1px;
+      background: var(--text);
+      transition: width 0.3s ease;
+    }
+    .pager-prev:hover .arrow-line,
+    .pager-next:hover .arrow-line {
+      width: 56px;
+    }
+
+    /* 矢印チップ — CSS border三角 */
+    .arrow-tip-left {
+      width: 0; height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 7px solid var(--text);  /* ← 左向き */
+    }
+    .arrow-tip-right {
+      width: 0; height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 7px solid var(--text);   /* → 右向き */
+    }
+
+    /* テキスト部 */
+    .pager-texts { display: flex; flex-direction: column; }
+    .pager-prev .pager-texts { align-items: flex-start; }
+    .pager-next .pager-texts { align-items: flex-end; }
+
+    .pager-dir {
+      font-family: 'EB Garamond', serif;
+      font-size: 9px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pager-work-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      line-height: 1.5;
+      max-width: 200px;
+    }
+    .pager-next .pager-work-title { text-align: right; }
+
+    /* 中央: see more SVG（リンク） */
+    .pager-center {
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .pager-seemore-svg {
+      width: 90px;
+      height: 90px;
+      display: block;
+      animation: spin-slow 20s linear infinite;
+      cursor: pointer;
+      overflow: visible;
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* 中央ドット: ホバーで中央から拡大 → see more より大きく → ベタ塗りから細線へ */
+    .seemore-dot {
+      fill: #7a8ba8;
+      stroke: #7a8ba8;
+      stroke-width: 0;
+      transform-box: fill-box;
+      transform-origin: center center;
+      transition:
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        fill       0.4s  ease,
+        stroke-width 0.4s ease;
+    }
+    .pager-center:hover .seemore-dot {
+      transform: scale(8);
+      fill: transparent;
+      stroke-width: 0.125; /* scale(8) で視覚上ちょうど 1px に見える */
+    }
+
+    /* see more テキスト・グループの色 */
+    .pager-seemore-svg text {
+      fill: #7a8ba8;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ════════════════════════════
+       FOOTER（portfolio_merged_1.html より）
+    ════════════════════════════ */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: #fff;
+      padding: 60px 40px 40px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', 'Noto Sans JP', serif;
+    }
+
+    .footer-home {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #1a1a1a;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1a1a1a;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .footer-home .arrow {
+      font-style: normal;
+      display: inline-block;
+      font-size: 16px;
+      transition: transform 0.25s ease;
+    }
+    .footer-home:hover .arrow { transform: translateX(5px); }
+
+    .footer-nav {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+    }
+    .footer-nav-col { flex: 1; }
+    .footer-nav-col a {
+      display: block;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+    .footer-nav-col > a { margin-bottom: 12px; }
+    .footer-nav-col > a .arrow {
+      font-style: normal;
+      display: inline-block;
+      margin-right: 4px;
+      font-size: 16px;
+      transition: transform 0.25s ease;
+    }
+    .footer-nav-col > a:hover .arrow { transform: translateX(5px); }
+
+    .footer-submenu { padding-left: 0; margin-top: 4px; }
+    .footer-submenu-indent {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .footer-submenu-bracket {
+      color: #1a1a1a;
+      font-size: 13px;
+      line-height: 1.6;
+      flex-shrink: 0;
+    }
+    .footer-submenu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-submenu-list li a {
+      font-size: 13px;
+      color: #1a1a1a;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      position: relative;
+      display: inline-block;
+    }
+    .footer-submenu-list li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: #1a1a1a;
+      transition: width 0.3s ease;
+    }
+    .footer-submenu-list li a:hover::after { width: 100%; }
+
+    .footer-copyright {
+      margin-top: 60px;
+      text-align: right;
+      font-size: 9px;
+      color: #b0b0b0;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .split-layout { grid-template-columns: 1fr; }
+      .mailmag-inner { grid-template-columns: 1fr; }
+      .hero-image-wrap { height: 260px; }
+      .scroll-indicator { right: 12px; }
+      .pager { grid-template-columns: 1fr; gap: 28px; justify-items: center; }
+      .pager-work-title { display: none; }
+      .pager-seemore-svg { width: 72px; height: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAV（portfolio_merged_1.html より）
+     左端 = viewport 左端からそのまま伸びる
+══════════════════════════════ -->
+<div class="nav-outer">
+  <nav id="main-nav">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Work</a>
+    <a href="#">Career</a>
+  </nav>
+</div>
+<!-- nav-outer は height:0 のため、nav の実高さ分だけスペースを確保 -->
+<div style="height: calc(var(--nav-h) + var(--nav-gap) * 2);"></div>
+
+<!-- BREADCRUMB & TITLE -->
+<div class="content-wrap" style="padding-top: 16px;">
+  <p class="breadcrumb">
+    <a href="#">Work</a><span>/</span>ブランド浸透のための備品・グッズ制作
+  </p>
+  <h1 class="page-title">ブランド浸透のための備品・グッズ制作</h1>
+</div>
+
+<!-- ══════════════════════════════
+     HERO BLOCK（左端ブリード）
+     ウィンドウ左端 → コンテンツ右端まで
+══════════════════════════════ -->
+<div class="hero-block">
+
+  <!-- ① HERO IMAGE: src="" に画像パスを入れてください（例: src="images/hero.jpg"） -->
+  <div class="hero-image-wrap">
+    <img src="" alt="ブランド浸透のための備品・グッズ制作">
+  </div>
+
+  <!-- SCROLL インジケーター -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════
+     コンテンツ本体
+══════════════════════════════ -->
+<div class="content-wrap">
+
+  <!-- ② VIDEO SECTION
+       YouTube: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+       動画ファイル: <video src="movie.mp4" controls></video>
+       → .video-placeholder を削除して上記タグに置き換えてください -->
+  <section class="video-section">
+    <div class="video-wrapper">
+      <div class="video-placeholder">
+        <div class="video-play-icon"></div>
+        <p class="video-label">Video — Insert iframe or video tag here</p>
+      </div>
+    </div>
+    <p class="video-caption">ブランド浸透のための備品・グッズ制作</p>
+  </section>
+
+  <!-- OVERVIEW -->
+  <div class="overview">
+    <p>No.16 — ブランド浸透のための備品・グッズ制作</p>
+  </div>
+
+  <!-- ③ SECTION 1: 課題と背景 -->
+  <section class="section">
+    <p class="section-label">Context</p>
+    <h2 class="section-title"><span class="num">1</span>課題と背景</h2>
+    <div class="section-body">
+      <p>組織拡大に伴う一体感の醸成が課題。日常的に触れる「モノ」を通じて、従業員の誇りとブランドイメージを可視化する必要がありました。</p>
+    </div>
+  </section>
+
+  <!-- ④ SECTION 2: 戦略的アプローチ -->
+  <section class="section">
+    <p class="section-label">Strategy</p>
+    <h2 class="section-title"><span class="num">2</span>戦略的アプローチ</h2>
+    <div class="split-layout">
+      <div class="section-body">
+      <p>社章、制服、文具等をトータルデザイン。徹底した仕様比較とコスト試算で迅速な経営判断を支援。こだわり： 高精度な仕上がり予測を作成し、愛着の持てる洗練されたデザインを追求しました。</p>
+      </div>
+      <!-- 右側画像: src="" に画像パスを入れてください -->
+      <div class="img-ph split-single" data-label="Image"><img src="" alt="撮影風景"></div>
+    </div>
+  </section>
+
+  <!-- ⑤ SECTION 3: こだわり -->
+  <section class="section">
+    <p class="section-label">Creative</p>
+    <h2 class="section-title"><span class="num">3</span>こだわり</h2>
+    <div class="section-body">
+      <p>上記の戦略・アプローチをご参照ください。</p>
+    </div>
+  </section>
+
+  <!-- ⑥ SECTION 4: 成果と貢献 -->
+  <section class="section">
+    <p class="section-label">Results &amp; Transferability</p>
+    <h2 class="section-title"><span class="num">4</span>成果と貢献</h2>
+    <div class="section-body">
+      <p>従業員の帰属意識向上と、対外的なブランド確立。哲学を形に変え、働く人の誇りを創出するデザイン・プロデュース力。</p>
+    </div>
+  </section>
+
+  <!-- ⑦ SECTION 5: 役割 -->
+  <section class="section" style="margin-bottom: 96px;">
+    <p class="section-label">Role</p>
+    <h2 class="section-title"><span class="num">5</span>役割</h2>
+    <div class="section-body">
+      <p>クリエイティブディレクター。企画、コスト管理、業者調整、デザイン。</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       PAGER
+  ════════════════════════════ -->
+  <nav class="pager" aria-label="前後の作品へ">
+
+    <!-- PREV: [◀]─── テキスト -->
+    <a href="work_15.html" class="pager-prev">
+      <div class="pager-arrow-line">
+        <span class="arrow-tip-left"></span>
+        <span class="arrow-line"></span>
+      </div>
+      <div class="pager-texts">
+        <span class="pager-dir">Prev</span>
+        <span class="pager-work-title">No.15 公式サイトとメール配信の統合運用</span>
+      </div>
+    </a>
+
+    <!-- CENTER: see more SVG（リンク付き・ホバーでドットが拡大→線に変化） -->
+    <a href="#" class="pager-center" aria-label="作品一覧へ">
+      <svg class="pager-seemore-svg"
+           xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 95.568 95.963"
+           aria-hidden="true">
+        <defs>
+          <style>
+            .sm1 { font-size:12px; font-family:'Cormorant Garamond',serif; fill:#7a8ba8; }
+            .sm2 { font-size:13px; font-family:'Cormorant Garamond',serif; fill:#7a8ba8; }
+          </style>
+        </defs>
+        <g opacity="0.846">
+          <text class="sm1" transform="matrix(0.932,0.363,-0.363,0.932,57.839,12.388)"><tspan x="0" y="0">s</tspan></text>
+          <text class="sm2" transform="matrix(0.841,0.541,-0.541,0.841,63.805,15.728)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm2" transform="translate(70.118,19.758) rotate(44.594)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="translate(78.541,26.692) rotate(66.272)"><tspan x="0" y="0">m</tspan></text>
+          <text class="sm2" transform="translate(82.769,39.636) rotate(83.75)"><tspan x="0" y="0">o</tspan></text>
+          <text class="sm1" transform="translate(84.613,48.036) rotate(95.6)"><tspan x="0" y="0">r</tspan></text>
+          <text class="sm2" transform="translate(83.03,54.561) rotate(106.809)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="translate(80.462,65.005) rotate(124.007)"><tspan x="0" y="0">+</tspan></text>
+          <text class="sm1" transform="matrix(-0.776,0.631,-0.631,-0.776,73.609,74.102)"><tspan x="0" y="0">s</tspan></text>
+          <text class="sm2" transform="translate(67.752,77.649) rotate(152.31)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm2" transform="translate(61.131,81.155) rotate(164.37)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="translate(50.947,85.019) rotate(-174.2)"><tspan x="0" y="0">m</tspan></text>
+          <text class="sm2" transform="translate(37.62,82.312) rotate(-156.68)"><tspan x="0" y="0">o</tspan></text>
+          <text class="sm1" transform="matrix(-0.816,-0.577,0.577,-0.816,29.4,79.761)"><tspan x="0" y="0">r</tspan></text>
+          <text class="sm2" transform="translate(24.514,75.151) rotate(-133.386)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="matrix(-0.441,-0.898,0.898,-0.441,16.695,67.749)"><tspan x="0" y="0">+</tspan></text>
+          <text class="sm1" transform="translate(12.169,57.3) rotate(-99.36)"><tspan x="0" y="0">s</tspan></text>
+          <text class="sm2" transform="translate(12,50.468) rotate(-88.282)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm2" transform="matrix(0.241,-0.971,0.971,0.241,12.227,42.971)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="translate(13.885,32.19) rotate(-54.395)"><tspan x="0" y="0">m</tspan></text>
+          <text class="sm2" transform="translate(22.856,21.96) rotate(-37.09)"><tspan x="0" y="0">o</tspan></text>
+          <text class="sm1" transform="translate(29.131,16.066) rotate(-24.775)"><tspan x="0" y="0">r</tspan></text>
+          <text class="sm2" transform="matrix(0.972,-0.237,0.237,0.972,35.542,14.097)"><tspan x="0" y="0">e</tspan></text>
+          <text class="sm1" transform="translate(45.829,10.98) rotate(3.45)"><tspan x="0" y="0">+</tspan></text>
+        </g>
+        <!-- 中央ドット: ホバーで拡大 → 塗りつぶし → 線 -->
+        <circle class="seemore-dot" cx="47.998" cy="48.333" r="6.692"/>
+      </svg>
+    </a>
+
+    <!-- NEXT: テキスト ───[▶] -->
+    <a href="work_17.html" class="pager-next">
+      <div class="pager-texts">
+        <span class="pager-dir">Next</span>
+        <span class="pager-work-title">No.17 Sony’s FES Watch U デザイン</span>
+      </div>
+      <div class="pager-arrow-line">
+        <span class="arrow-line"></span>
+        <span class="arrow-tip-right"></span>
+      </div>
+    </a>
+
+  </nav>
+
+</div><!-- /.content-wrap -->
+
+<!-- ══════════════════════════════
+     FOOTER（portfolio_merged_1.html より）
+══════════════════════════════ -->
+<footer>
+  <a href="#" class="footer-home"><span class="arrow">›</span> Home</a>
+  <nav class="footer-nav">
+    <div class="footer-nav-col">
+      <a href="#"><span class="arrow">›</span> About</a>
+    </div>
+    <div class="footer-nav-col">
+      <a href="#"><span class="arrow">›</span> Work</a>
+      <div class="footer-submenu">
+        <div class="footer-submenu-indent">
+          <span class="footer-submenu-bracket">└</span>
+          <ul class="footer-submenu-list">
+            <li><a href="#">Digital</a></li>
+            <li><a href="#">Event</a></li>
+            <li><a href="#">Sales Support</a></li>
+            <li><a href="#">Public Relations</a></li>
+            <li><a href="#">Private</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-nav-col">
+      <a href="#"><span class="arrow">›</span> Career</a>
+    </div>
+  </nav>
+  <p class="footer-copyright">神田 有作のデザインのポートフォリオとなり、無断転載等の一切を禁止しております</p>
+</footer>
+
+</body>
+</html>

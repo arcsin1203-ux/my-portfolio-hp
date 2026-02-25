@@ -1,0 +1,228 @@
+///////////////////////////////////
+//          03_works             //
+///////////////////////////////////
+.works-hero {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + var(--nav-gap) * 2 + 20px) 40px 0;
+  gap: 4vw;
+}
+
+/* テキスト系：初期は非表示 */
+.works-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 7vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 2rem;
+  color: var(--text);
+  opacity: 0;
+}
+
+.works-hero p {
+  font-size: 12px;
+  line-height: 2.2;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  opacity: 0;
+}
+
+/* 1文字ずつフェード */
+.char {
+  display: inline;
+  opacity: 0;
+  animation: charFade 2.0s ease forwards;
+}
+@keyframes charFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 円：インクキャンバスを内包 */
+.works-hero-visual {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.hero-circle {
+  width: clamp(200px, 28vw, 380px);
+  height: clamp(200px, 28vw, 380px);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  opacity: 0;
+  background: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+#circle-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.15);
+  display: block;
+  border-radius: 50%;
+}
+#ink-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* ══ CARD ══ */
+.works-card {
+  flex: 0 0 auto;
+  width: clamp(360px, 44vw, 600px);
+  background: transparent;
+  overflow: visible;
+  position: relative;
+  /* 初期状態：非表示 */
+//  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  text-decoration: none;
+  color: inherit;
+}
+
+.works-card.works-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.works-card-header {
+  position: absolute;
+  top: 0;
+  left: -14px;
+  z-index: 3;
+  max-width: 80%;
+  padding: 0.72rem 1.6rem 0.72rem 1.2rem;
+  font-size: 13px;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: rgba(248, 248, 250, 0.68);
+  backdrop-filter: blur(20px) saturate(1.6) brightness(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6) brightness(1.08);
+  border-right: 1px solid rgba(255,255,255,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 2px 2px 18px rgba(0,0,0,0.07);
+  border-radius: 3px 0 5px 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  transition: background 0.3s;
+}
+.works-card:hover .works-card-header { background: rgba(255,255,255,0.85); }
+
+.works-card-inner {
+  position: relative;
+  margin-top: var(--header-protrude);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+}
+
+.works-card-thumb {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #cccccb;
+  display: block;
+}
+.works-card-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.15);
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+}
+.works-card:hover .card-thumb img {
+  transform: scale(1.04);
+  filter: grayscale(0);
+}
+
+.works-card-body {
+  padding: 1.1rem 0.1rem 0;
+  background: transparent;
+}
+.works-card-summary {
+  font-size: 12px;
+  line-height: 2;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ══ HORIZONTAL SCROLL ══ */
+.h-scroll-wrapper { position: relative; }
+
+.h-scroll-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.h-scroll-track {
+  display: flex;
+  gap: 5.5vw;
+  padding: var(--header-protrude) max(calc((100vw - 1000px) / 2), 40px) 0;
+  will-change: transform;
+  align-items: center;
+}
+
+/* ══ SCROLL PROGRESS ══ */
+.scroll-progress {
+  position: fixed;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.scroll-progress.visible { opacity: 1; }
+.scroll-progress-track {
+  width: 80px; height: 1px;
+  background: rgba(0,0,0,0.12);
+  position: relative; overflow: hidden;
+}
+.scroll-progress-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: var(--text);
+  width: 0%;
+}
+.scroll-progress-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--muted);
+  text-transform: uppercase;
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YUSAKU KANDA - Design Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <div class="spacer-top"></div>
+  <div id="menu"></div>
+  <!-- ヒーローセクション -->
+  <div class="hero-section">
+    <div class="hero-bg" id="hero-bg">
+      <img src="img/hero-bg.png">
+    </div>
+    <div class="bg-overlay" id="bg-overlay"></div>
+
+    <!-- 右パネル -->
+    <div class="col-right">
+      <div class="col-right-bg"></div>
+      <div class="hero-text">
+        <p class="hero-subtitle">Design Portfolio Site</p>
+        <h1 class="hero-name">YUSAKU<br>KANDA</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-description">
+            かんだ ゆうさくのデザインを掲載しております<br>
+            方針・コンセプトがはいります。ここに文章がはいります。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 画像とテキストのセクション -->
+  <div class="image-text-section">
+    <div class="image-area">
+      <img class="strength-image" src="img/strength.png" alt="強みの図">
+    </div>
+    <div class="text-area">
+      <div class="text-content">
+        <p>私の最大の強みは、企画から実行、視覚化までを一気通貫で<br>
+           担当できる「統合的な推進力」です。</p>
+        <p>主軸とするデザインスキルに加え、マーケティングや企画立案の<br>
+           経験を有しているため、企画制作から最終的なアウトプットを<br>
+           想定し、効果的な戦略を立てることができます。</p>
+        <p>この強みにより、複雑な情報を分かりやすく伝える視覚資料の<br>
+           作成を得意としています。<br>
+           単なるデザインに留まらず、ビジネスゴール達成のために最も<br>
+           理解しやすいロジックとデザインを融合させ、アウトプットの質と<br>
+           スピードを両立させてきました。</p>
+        <p>また、社内セミナー運営においては、会議手配、タータリング調整、<br>
+           他部署との密な連携を通じ、イベント全体を効率的に運行するなど、<br>
+           多岐にもわたる調整力と実行力を発揮し、事業の多角的な側面に<br>
+           貢献してまいりました。</p>
+      </div>
+      <div class="career-link">
+        <a href="02_career.html?" class="btn">経歴を詳しく見る　→</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- WORKセクション -->
+  <div class="work-section" id="work">
+    <div class="work-header">
+      <h2 class="work-title">WORK</h2>
+      <p class="work-subtitle">
+        今までのデザインや活動に実績・<br>
+        Design / Digital / Event  ect...
+      </p>
+    </div>
+    
+    <div class="work-grid">
+      <a href="03_works_digital.html" class="work-card">
+        <img src="https://via.placeholder.com/300x350/000000/FFFFFF?text=Degital" alt="Degital" class="work-thumb">
+        <div class="work-info">
+          <div class="work-number">01</div>
+          <div class="work-title">Degital</div>
+        </div>
+      </a>
+      
+      <a href="03_works_event.html" class="work-card">
+        <img src="https://via.placeholder.com/300x350/8B0000/FFFFFF?text=Event" alt="Event" class="work-thumb">
+        <div class="work-info">
+          <div class="work-number">02</div>
+          <div class="work-title">Event</div>
+        </div>
+      </a>
+      
+      <a href="03_works_sales_support.html" class="work-card">
+        <img src="https://via.placeholder.com/300x350/FFFFFF/000000?text=sales+support" alt="Sales Support" class="work-thumb">
+        <div class="work-info">
+          <div class="work-number">03</div>
+          <div class="work-title">Sale Support</div>
+        </div>
+      </a>
+      
+      <a href="03_works_public_relations.html" class="work-card">
+        <img src="https://via.placeholder.com/300x350/808080/FFFFFF?text=3DCG" alt="Public Relations" class="work-thumb">
+        <div class="work-info">
+          <div class="work-number">04</div>
+          <div class="work-title">Public Relations</div>
+        </div>
+      </a>
+      
+      <a href="03_works_private.html" class="work-card">
+        <div style="background: #000; height: 350px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5em;">
+          Private
+        </div>
+        <div class="work-info">
+          <div class="work-number">05</div>
+          <div class="work-title">Private</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div id="footer"></div>
+  <script src="common.js"></script>
+  <script>
+    const colRightBg = document.querySelector('.col-right-bg');
+    const heroText = document.querySelector('.col-right .hero-text');
+
+    const EVENT_ANIMATIOND = 'animationend';
+
+    // フェードイン完了後にanimationを解除してJSで制御できるようにする
+    // アニメーションが終わらない間にスクロールすると
+    // スクロール後にopacity=1となり、文字だけはっきり見える現象が起きるｓ
+    colRightBg.addEventListener(EVENT_ANIMATIOND, () => {
+      colRightBg.style.animation = 'none';
+      colRightBg.style.opacity = '1';
+    });
+    heroText.addEventListener(EVENT_ANIMATIOND, () => {
+      heroText.style.animation = 'none';
+      heroText.style.opacity = '1';
+    });
+
+    const heroBg = document.getElementById('hero-bg');
+    const overlay = document.getElementById('bg-overlay');
+    const colRight = document.querySelector('.col-right');
+
+    const SCROLL_END = window.innerHeight * 0.4;
+
+    // ↓↓↓徐々に白くしていくメカニズム↓↓↓
+    // 元々白く透明化しているbg-overlayの透明を徐々に濃くしている
+    // このままでは白いoverlayで画面全体を覆い隠してしまうので
+    // hero-sectionの部分が透明化した瞬間に透明化する
+    window.addEventListener('scroll', () => {
+      const progress = Math.min(1, Math.max(0, window.scrollY / SCROLL_END));
+      // 背景オーバーレイ: 0→1 (白くなる)
+      // 白になった瞬間透明化
+      // 右列も透明化しないと右列が覆っているボタンだけ押せなくなる
+      if(progress == 1){
+        overlay.style.opacity  = 0;
+        colRight.style.visibility = "hidden";
+      } else {
+        overlay.style.opacity = progress;
+        colRight.style.visibility = "visible";
+      }
+      
+      // 背景、すりガラス、テキストを透明化
+      // 子要素は透明化できないようなので、ピンポイントで透明化する必要がある      
+      colRightBg.style.opacity = 1 - progress;
+      heroText.style.opacity   = 1 - progress;
+      heroBg.style.opacity     = 1 - progress;
+
+    }, { passive: true });
+  </script>
+</body>
+</html>
